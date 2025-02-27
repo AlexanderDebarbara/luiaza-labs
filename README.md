@@ -2,7 +2,7 @@
 
 API para salvar produtos favoritos de clientes
 
-O desafio esta especificado no arquivo: [PDF] Desafio Tecnico Backend _ Wishlist _ LuizaLabs.pdf
+O desafio está especificado no arquivo: [PDF] Desafio Tecnico Backend _ Wishlist _ LuizaLabs.pdf
 
 ## Pré-requisitos
 
@@ -35,7 +35,9 @@ A API utiliza-se de Basic authentication para realizar as requisições.
 
 Você pode acessar diretamente a interface do django rest para realizar os testes no endpoint ```http://localhost:8000```
 
-Ou fazer as requisições via postman ou outro programa de sua preferência.
+Poder ser feito as requisições via postman ou outro programa de sua preferência.
+
+``Obs: Lembre sempre de colocar '/' no final de todas as urls``
 
 ## Área de clientes
 **Criar cliente**
