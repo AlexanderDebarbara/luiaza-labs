@@ -115,7 +115,7 @@ POST: http://localhost:8000/produtos-favoritos/
 
 Body: {
     "email": "joao@teste.com",
-    "id_produto: 5 # Id do produto na API terceira mencionada acima
+    "id_produto": 5 # Id do produto na API terceira mencionada acima
 }
 
 Headers: {
