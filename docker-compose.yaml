@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  
+  api:
+    build: .
+    command: bash -c 'python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000 -v2'
+    restart: always
+    volumes:
+      - .:/app
+      - ./static:/app/static
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  pgdata:
