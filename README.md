@@ -1,6 +1,7 @@
 # Desafio Tecnico Backend Wishlist LuizaLabs
 
 API para salvar produtos favoritos de clientes
+O desafio esta especificado no [PDF desafio tecnico]([PDF] Desafio Tecnico Backend _ Wishlist _ LuizaLabs.pdf)
 
 ## Pré-requisitos
 
@@ -23,7 +24,7 @@ Usuário criado será ``magalu`` e senha ``magalu``
 
 Para rodar os testes:
 ```
-make teste
+make test
 ```
 
 
@@ -42,11 +43,11 @@ POST: http://localhost:8000/clientes/
 
 Body:{
     "nome": "João",
-    "email: "joao@teste.com"
+    "email": "joao@teste.com"
 }
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 
 ```
@@ -54,51 +55,51 @@ Hearder: {
 ```
 GET: http://localhost:8000/clientes/
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 **Detalhe do cliente**
 ```
-GET: http://localhost:8000/clientes/{id}
+GET: http://localhost:8000/clientes/{id}/
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 **Atualizar um cliente**
 ```
-PUT: http://localhost:8000/clientes/{id}
+PUT: http://localhost:8000/clientes/{id}/
 
 Body:{
     "nome": "Maria",
-    "email: "maria@teste.com"
+    "email": "maria@teste.com"
 }
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 
 **Atualizar parcialmente um cliente**
 ```
-PATCH: http://localhost:8000/clientes/{id}
+PATCH: http://localhost:8000/clientes/{id}/
 
 Body:{
     "nome": "Maria"
 }
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 
 **Remover cliente**
 ```
-DELETE: http://localhost:8000/clientes/{id}
+DELETE: http://localhost:8000/clientes/{id}/
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 
@@ -114,16 +115,16 @@ Body: {
     "id_produto: 5 # Id do produto na API terceira mencionada acima
 }
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 **Listar todos os produtos favoritos de todos os clientes**
 ```
 GET: http://localhost:8000/produtos-favoritos/
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 
@@ -131,16 +132,17 @@ Hearder: {
 ```
 GET: http://localhost:8000/produtos-favoritos/?cliente__email=joao@teste.com
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
 
 **Remover um produto de um favorito**
 ```
-DELETE: http://localhost:8000/produtos-favoritos/{id}
+DELETE: http://localhost:8000/produtos-favoritos/{id}/
+# {id} corresponte ao id produto favorito e não ao id_produto
 
-Hearder: {
-    "Autorizartion": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
+Headers: {
+    "Authorization": "Basic bWFnYWx1Om1hZ2FsdQ==" # Base64 do basic auth do usuário cadastrado
 }
 ```
