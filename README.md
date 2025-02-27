@@ -1,7 +1,7 @@
 # Desafio Tecnico Backend Wishlist LuizaLabs
 
 API para salvar produtos favoritos de clientes
-O desafio esta especificado no [PDF desafio tecnico]([PDF] Desafio Tecnico Backend _ Wishlist _ LuizaLabs.pdf)
+O desafio esta especificado no arquivo ([PDF] Desafio Tecnico Backend _ Wishlist _ LuizaLabs.pdf)
 
 ## Pré-requisitos
 
