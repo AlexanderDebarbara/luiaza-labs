@@ -3,3 +3,5 @@ django-rest-framework
 psycopg2
 requests
 django-filter
+pytest
+pytest-django

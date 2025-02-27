@@ -13,7 +13,7 @@ class Cliente(models.Model):
     
 
 class ProdutoFavorito(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, related_name='produtos_favoritos', on_delete=models.CASCADE)
     titulo = models.CharField("titulo", max_length=50)
     imagem = models.URLField("imagem", max_length=200)
     preco = models.DecimalField("preco", max_digits=5, decimal_places=2)
@@ -25,4 +25,5 @@ class ProdutoFavorito(models.Model):
         unique_together = [['cliente', 'id_produto']]
 
     def __str__(self):
-        return self.cliente.name
+        return self.titulo
+

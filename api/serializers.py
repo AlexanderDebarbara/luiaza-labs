@@ -5,17 +5,6 @@ from rest_framework import serializers
 from django.conf import settings
 
 from .models import Cliente, ProdutoFavorito
-
-
-class ClienteSerializer(serializers.ModelSerializer):
-    detalhe = serializers.SerializerMethodField(source="get_detalhe")
-
-    class Meta:
-        model = Cliente
-        fields = ['nome', 'email', "detalhe"]
-
-    def get_detalhe(self, obj):
-        return reverse("cliente-detail", kwargs={'pk': obj.pk})
     
 
 class ProdutoFavoritoDetailSerializer(serializers.ModelSerializer):
@@ -24,7 +13,8 @@ class ProdutoFavoritoDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProdutoFavorito
         fields = [
-            'cliente_id',
+            'id',
+            'cliente',
             'titulo',
             'imagem',
             'preco',
@@ -37,28 +27,50 @@ class ProdutoFavoritoDetailSerializer(serializers.ModelSerializer):
 
 
 class ProdutoFavoritoCreateSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(max_length=255)
+    
     class Meta:
         model = ProdutoFavorito
         fields = [
-            'cliente',
+            'email',
             'id_produto',
         ]
 
-    def create(self, validated_data):
-        cliente = validated_data["cliente"]
-        id_produto = validated_data["id_produto"]
 
+    def get_produto(self, id_produto):
         response = requests.get(settings.API_PRODUCTS_URL + str(id_produto))
         if response.status_code != 200:
             raise serializers.ValidationError("Não foi possível favoritar o produto. O produto não foi encontrato.")
         
-        data_produto = response.json()
+        return response.json()
+
+    def create(self, validated_data):
+        email = validated_data["email"]
+        id_produto = validated_data["id_produto"]
+        
+        try:
+            cliente = Cliente.objects.get(email=email)
+        except Cliente.DoesNotExist:
+            raise serializers.ValidationError("Cliente não encontrado.")
+        
+        data_produto = self.get_produto(id_produto)
+
+        if ProdutoFavorito.objects.filter(cliente=cliente, id_produto=id_produto).exists():
+            raise serializers.ValidationError("Produto já favoritado para o cliente selecionado.")
 
         cliente = ProdutoFavorito.objects.create(
             cliente=cliente,
             id_produto=id_produto,
             preco=data_produto.get("price"),
             titulo=data_produto.get("title"),
-            imagem=data_produto.get("images")[0]            
+            imagem=data_produto.get("images")[0][:200]
         )
-        return cliente
+        return validated_data
+
+
+class ClienteSerializer(serializers.ModelSerializer):
+    produtos_favoritos = ProdutoFavoritoDetailSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Cliente
+        fields = ['id', 'nome', 'email', "produtos_favoritos"]
